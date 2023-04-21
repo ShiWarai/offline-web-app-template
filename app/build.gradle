@@ -3,15 +3,15 @@ plugins {
 }
 
 android {
-    namespace 'ru.mirea.remote_debug'
+    namespace 'ru.mirea.offline_web_app'
     compileSdk 33
 
     defaultConfig {
-        applicationId "ru.mirea.remote_debug"
+        applicationId "ru.mirea.offline_web_app"
         minSdk 23
         targetSdk 33
         versionCode 1
-        versionName "1.0"
+        versionName "0.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

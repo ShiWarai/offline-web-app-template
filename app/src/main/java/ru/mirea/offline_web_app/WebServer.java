@@ -1,4 +1,4 @@
-package ru.mirea.remote_debug;
+package ru.mirea.offline_web_app;
 
 import android.content.res.AssetManager;
 
@@ -30,12 +30,10 @@ public class WebServer extends NanoHTTPD {
         String mimeType;
 
         try {
-            if(uri.equals("/"))
-            {
+            if (uri.equals("/")) {
                 path = "index.html";
                 mimeType = "text/html";
-            }
-            else {
+            } else {
                 path = uri.substring(1);
                 mimeType = probeContent(path);
             }
@@ -44,7 +42,7 @@ public class WebServer extends NanoHTTPD {
             return newChunkedResponse(Response.Status.OK, mimeType, inputStream);
         } catch (IOException e) {
             e.printStackTrace();
-            return newFixedLengthResponse(Response.Status.BAD_REQUEST, "text/html" , "<h1>Something wrong with assets</h1>");
+            return newFixedLengthResponse(Response.Status.BAD_REQUEST, "text/html", "<h1>Something wrong with assets</h1>");
         }
     }
 

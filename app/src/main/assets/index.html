@@ -1,89 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>BigDog-Remote-Debug</title>
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <title>Test</title>
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-
 <body style="height: 100vh;min-height: 100vh;max-height: 100vh;">
-    <div class="d-flex flex-row justify-content-center" style="height: 100%;padding: 10px;">
-        <div id="output-pad-div" class="d-none d-lg-block" style="width: 60%;height: 100%;min-height: 100vh;max-height: 100vh;">
-            <div class="btn-group legs-buttons" role="group"><button class="btn btn-primary btn-sm" id="leg-1" type="button" onclick="set_leg(this)">Нога 1</button><button class="btn btn-primary btn-sm" id="leg-2" type="button" onclick="set_leg(this)">Нога 2</button><button class="btn btn-primary btn-sm" id="leg-3" type="button" onclick="set_leg(this)">Нога 3</button><button class="btn btn-primary btn-sm" id="leg-4" type="button" onclick="set_leg(this)">Нога 4</button></div>
-            <ul>
-                <li id="motor-1">Мотор 1<ul>
-                        <li><span>Текущее положение:&nbsp;</span><span name="pos"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">Положение</span><input class="form-control" type="number" step="0.1" required="" name="pos"></div>
-                        </li>
-                        <li><span>Текущий KP:&nbsp;</span><span name="kp"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">KP</span><input class="form-control" type="number" step="any" required="" name="kp"></div>
-                        </li>
-                        <li><span>Текущая скорость:&nbsp;</span><span name="vel"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">Скорость</span><input class="form-control" type="number" step="any" required="" name="vel"></div>
-                        </li>
-                        <li><span>Текущий KD:&nbsp;</span><span name="kd"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">KD</span><input class="form-control" type="number" step="any" required="" name="kd"></div>
-                        </li>
-                        <li><span>Текущий момент вращения:&nbsp;</span><span name="trq"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">Момент вращения</span><input class="form-control" type="number" step="any" required="" name="trq"></div>
-                        </li>
-                    </ul>
-                </li>
-                <li id="motor-2">Мотор 2<ul>
-                        <li><span>Текущее положение:&nbsp;</span><span name="pos"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">Положение</span><input class="form-control" type="number" step="0.1" required="" name="pos"></div>
-                        </li>
-                        <li><span>Текущий KP:&nbsp;</span><span name="kp"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">KP</span><input class="form-control" type="number" step="any" required="" name="kp"></div>
-                        </li>
-                        <li><span>Текущая скорость:&nbsp;</span><span name="vel"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">Скорость</span><input class="form-control" type="number" step="any" required="" name="vel"></div>
-                        </li>
-                        <li><span>Текущий KD:&nbsp;</span><span name="kd"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">KD</span><input class="form-control" type="number" step="any" required="" name="kd"></div>
-                        </li>
-                        <li><span>Текущий момент вращения:&nbsp;</span><span name="trq"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">Момент вращения</span><input class="form-control" type="number" step="any" required="" name="trq"></div>
-                        </li>
-                    </ul>
-                </li>
-                <li id="motor-3">Мотор 3<ul>
-                        <li><span>Текущее положение:&nbsp;</span><span name="pos"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">Положение</span><input class="form-control" type="number" step="0.1" required="" name="pos"></div>
-                        </li>
-                        <li><span>Текущий KP:&nbsp;</span><span name="kp"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">KP</span><input class="form-control" type="number" step="any" required="" name="kp"></div>
-                        </li>
-                        <li><span>Текущая скорость:&nbsp;</span><span name="vel"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">Скорость</span><input class="form-control" type="number" step="any" required="" name="vel"></div>
-                        </li>
-                        <li><span>Текущий KD:&nbsp;</span><span name="kd"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">KD</span><input class="form-control" type="number" step="any" required="" name="kd"></div>
-                        </li>
-                        <li><span>Текущий момент вращения:&nbsp;</span><span name="trq"></span>
-                            <div class="input-group input-group-sm"><span class="input-group-text">Момент вращения</span><input class="form-control" type="number" step="any" required="" name="trq"></div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="d-flex flex-column flex-grow-1 justify-content-around align-items-center" id="control-pad-div" style="height: 100%;">
-            <div class="d-flex flex-row justify-content-between align-items-center">
-                <div id="connection_indicator" style="background: #fa0000;width: 10px;height: 10px;min-width: 10px;min-height: 10px;margin-right: 16px;"></div><button class="btn btn-warning" type="button" onclick="request_connection()" style="margin-bottom: 16px;">Подключение к RDB-1</button>
-            </div><button class="btn btn-dark" id="turn_motors" type="button" onclick="upload_motors_on()" style="margin-bottom: 16px;">Включить двигатели</button>
-            <div class="flex-column flex-grow-0 justify-content-between" id="control-block" style="margin-bottom: 16px;display: flex;height: 60%;" hidden=""><button class="btn btn-info" type="button" onclick="set_to_base()">Установить в 0</button><button class="btn btn-info" type="button" onclick="set_pose_0()">Позиция 0</button><button class="btn btn-info" type="button" onclick="set_pose_2()">Позиция 2</button><button class="btn" id="switch_cycle_1" type="button" onclick="switch_cycle_1()" style="background: #20c9a0;">Цикл 1 (марш на месте)</button><button class="btn" id="switch_cycle_2" type="button" onclick="switch_cycle_2()" style="background: #20c9a0;">Цикл 2 (приставной)</button><button class="btn btn-primary d-none d-lg-block" type="button" onclick="update_states()">Обновить данные</button><button class="btn btn-primary d-none d-lg-block" type="button" onclick="upload_states()">Отправить данные</button></div><button class="btn btn-danger" type="button" onclick="request_disconnect()">Отключение</button>
-        </div>
-    </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/ble_data.js"></script>
-    <script src="assets/js/commands.js"></script>
-    <script src="assets/js/cycles.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/misc.js"></script>
+<a>
+    Test
+</a>
+<button onclick="toggleFullscreen()">
+    Fullscreen
+</button>
 </body>
+<script>
+async function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+        document.querySelector("body").requestFullscreen();
+    } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+    }
+}
 
+</script>
 </html>

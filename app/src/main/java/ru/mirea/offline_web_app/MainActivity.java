@@ -1,11 +1,11 @@
-package ru.mirea.remote_debug;
+package ru.mirea.offline_web_app;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.browser.customtabs.CustomTabsIntent;
@@ -16,10 +16,11 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     private WebServer server;
-    private Button customChromeTabBtn;
+    private CustomTabsIntent customTabsIntent;
 
-    String url = "http://localhost";
-    Integer port = 8000;
+    final String url = "http://localhost";
+    final Integer port = 8000;
+    final Integer startUpDelay = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +33,23 @@ public class MainActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        customChromeTabBtn = findViewById(R.id.idBtnCustomChromeTab);
-        customChromeTabBtn.setOnClickListener(new View.OnClickListener() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onClick(View v) {
+            public void run() {
+                if (customTabsIntent == null) {
+                    CustomTabsIntent.Builder customIntent = new CustomTabsIntent.Builder();
+                    customIntent.setToolbarColor(ContextCompat.getColor(MainActivity.this, R.color.purple_200));
+                    customIntent.setShowTitle(true);
+                    customIntent.setUrlBarHidingEnabled(true);
+                    customTabsIntent = customIntent.build();
+                }
 
-                CustomTabsIntent.Builder customIntent = new CustomTabsIntent.Builder();
-                customIntent.setToolbarColor(ContextCompat.getColor(MainActivity.this, R.color.purple_200));
-                openCustomTab(MainActivity.this, customIntent.build(), Uri.parse(url + ":"+ port.toString()));
+                openCustomTab(MainActivity.this, customTabsIntent, Uri.parse(url + ":" + port));
             }
-        });
+        }, startUpDelay);
+
+
     }
 
     public static void openCustomTab(Activity activity, CustomTabsIntent customTabsIntent, Uri uri) {
@@ -58,5 +66,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         server.closeAllConnections();
+    }
+
+    public void reloadTab(View view) {
+        if (customTabsIntent != null) {
+            openCustomTab(MainActivity.this, customTabsIntent, Uri.parse(url + ":" + port));
+        }
     }
 }
