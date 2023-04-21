@@ -1,4 +1,4 @@
-package ru.mirea.remote_debug;
+package ru.mirea.offline_web_app;
 
 import static org.junit.Assert.assertEquals;
 

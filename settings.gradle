@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "RemoteDebug"
+rootProject.name = "Offile Web App"
 include ':app'
